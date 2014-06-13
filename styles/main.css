@@ -1,0 +1,778 @@
+* {
+    box-sizing: border-box;
+    font-size: 1em;
+}
+html, body {
+    background: #45484d;
+    background-image: url('../images/background.png');
+    color: #eee;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    font-family: 'YanoneKaffeesatz', 'Open Sans', 'Arial', 'Helvetica';
+}
+.hidden {
+    display: none;
+}
+.invisible {
+    visibility: hidden;
+}
+.float-group:before,
+.float-group:after {content: ' '; display: table;}
+.float-group:after {clear: both;}
+.float-group {*zoom: 1;}
+
+/*******************************************************************************
+            Fonts 
+*******************************************************************************/
+@font-face {
+    font-family: 'Satellite';
+    src: url('../fonts/satellite-webfont.eot');
+    src: url('../fonts/satellite-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/satellite-webfont.woff') format('woff'),
+         url('../fonts/satellite-webfont.ttf') format('truetype'),
+         url('../fonts/satellite-webfont.svg#Satellite') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+@font-face {
+    font-family: 'YanoneKaffeesatz';
+    src: url('../fonts/YanoneKaffeesatz-Regular-webfont.eot');
+    src: url('../fonts/YanoneKaffeesatz-Regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/YanoneKaffeesatz-Regular-webfont.woff') format('woff'),
+         url('../fonts/YanoneKaffeesatz-Regular-webfont.ttf') format('truetype'),
+         url('../fonts/YanoneKaffeesatz-Regular-webfont.svg#YanoneKaffeesatz') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/*******************************************************************************
+            Header 
+*******************************************************************************/
+body > header {
+    display: block;
+    font-size: 2.5em;
+    padding: 0.5em;
+    width: 100%;
+    background-color: #8a231c;
+}
+body > header .cinema {
+    display: inline-block;
+}
+body > header .cinema * {
+    display: inline-block;
+    margin-right: 0.5em;
+    vertical-align: middle;
+}
+body > header .clock {
+    float: right;
+    font-size: 1.3em;
+}
+body > header .clock .clock-hours {
+    font-weight: bold;
+}
+
+/*******************************************************************************
+            All Buttons 
+*******************************************************************************/
+button {
+    border: solid 3px #651e19;
+    color: #fff;
+    padding: 0.5em;
+    font-family: 'YanoneKaffeesatz', 'Open Sans', 'Arial', 'Helvetica';
+    background-color: #8a231c;
+    display: inline-block;
+    text-shadow: 2px 1px #651e19; 
+}
+button * {
+    display: inline-block;
+    vertical-align: middle;
+}
+button .icon {
+    margin-right: 10px;
+}
+button:active {
+    background-color: #390d09;
+    -webkit-transition-duration: 0.2s;
+    -webkit-transform: scale(0.95);
+}
+button:disabled {
+    background-image: none;
+    background-color: #999;
+    border-color: #666;
+    text-shadow: 2px 1px #666; 
+    color: #555;
+}
+button:focus {
+    outline: 0;
+}
+
+/*******************************************************************************
+            Slider
+*******************************************************************************/
+#slide-container {
+    width: 100%;
+    height: 100%;
+}
+#slide-container .slide .page {
+    overflow: hidden;
+}
+
+/*******************************************************************************
+            Pages 
+*******************************************************************************/
+.page {
+    width: 100%;
+    height: 100%;
+}
+.page > header {
+    font-size: 3em;
+    font-weight: bold;
+    overflow: hidden;
+    padding: 1em;
+    width: 100%;
+    height: 10%;
+}
+.page .content {
+    overflow: auto;
+    width: 100%;
+    height: 80%;
+    padding: 1em;
+}
+.page footer {
+    padding: 1em;
+    position: absolute;
+    width: 100%;
+    height: 10%;
+    z-index: 100;
+}
+.page footer button {
+    float: right;
+    font-size: 2em;
+    margin-left: 0.5em;
+    margin-right: 0.5em;
+}
+::-webkit-scrollbar {
+    height: 10px;
+    width: 10px;
+}
+::-webkit-scrollbar-thumb {
+    background: #651e19;
+    border: solid thin #390d09;
+    border-radius: 5px;
+}
+
+/* page-initial */
+#page-initial .hero-image {
+    border-top: solid 10px #651e19;
+    border-bottom: solid 10px #651e19;
+}
+#page-initial .initial-buttons {
+    text-align: center;
+    margin-top: 50px;
+}
+#page-initial .initial-buttons button {
+    font-size: 4em;
+    margin-right: 0.5em;
+    min-width: 400px;
+}
+
+/* page-movies */
+#page-movies > header,
+#page-movies > footer {
+    box-shadow: 0px 5px 15px 2px #111,
+                0px -5px 15px 2px #111;
+    position: relative;
+    z-index: 1;
+}
+#page-movies .content {
+    border-bottom: thin solid #222;
+    border-top: thin solid #222;
+    padding: 0;
+}
+#page-movies .movies-carousel {
+    width: 100%;
+}
+#page-movies .movie {
+    box-shadow: 2px 2px 5px 3px #191919;
+    display: inline-block;
+    margin: 1em;
+    position: relative;
+    width: 23%;
+}
+#page-movies .movie:active {
+    -webkit-transition-duration: 0.2s;
+    -webkit-transform: scale(0.95);
+}
+#page-movies .movie .movie-data {
+    background-color: #8a231c;
+    margin-top: -2px;
+    padding: 1em;
+    width: 100%;
+}
+#page-movies .movie-rating {
+    text-align: center;
+    font-size: 1.2em;
+}
+#page-movies .movie-rating .title {
+    font-weight: bold;
+}
+#page-movies .movie-rating .rating {
+    font-style: italic;
+}
+#page-movies .movie-poster {
+    width: 100%;
+    height: 100%;
+}
+
+/* page-movie and page-showing */
+.poster-container
+{
+    display:inline-block;
+    margin-right:-2px;
+}
+.poster-container .movie-poster {
+    width: 200px;
+}
+.poster-container .movie-rating {
+    background-color: #8a231c;
+    font-size: 1.2em;
+    margin-top: -2px;
+    padding: 0.5em;
+    text-align: center;
+    color:#fff;
+}
+.poster-container .movie-rating .title {
+    font-weight: bold;
+}
+.poster-container .movie-rating .rating {
+    font-style: italic;
+}
+
+.poster-strip {
+    background-color: rgba(0, 0, 0, 0.75);
+    border-top: solid thin #222;
+    border-bottom: solid thin #222;
+    max-height: 45%;
+    padding: 2em;
+    position: absolute;
+    width: 100%;
+    top: 20%;
+    display: flex;
+}
+.poster-strip > div,
+.poster-strip .poster-strip-content > div {
+    display: inline-block;
+    vertical-align: top;
+}
+.poster-strip .poster-strip-content {
+    max-height: 100%;
+    width:calc(100% - 200px);
+    display:flex;
+}
+
+/* page-movie */
+#page-movie .movie-hero {
+    background-size: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    -webkit-filter: blur(5px);
+    z-index: 0;
+}
+#page-movie .movie-content {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+#page-movie .movie-content > header {
+    font-size: 3em;
+    font-weight: bold;
+    padding: 1em;
+    text-shadow: 2px 3px 5px #222;
+    max-height: 10%;
+}
+#page-movie .content {
+    padding: 0;
+}
+#page-movie .content header {
+    font-weight: bold;
+    font-size: 1.5rem;
+    margin-bottom: 0.5em;
+}
+#page-movie .movie-data {
+    flex: 7;
+    padding:0 1em;
+}
+#page-movie .movie-data > div {
+    font-size: 1.5em;
+}
+#page-movie .movie-data .movie-runtime,
+#page-movie .movie-data .movie-synopsis {
+    margin-bottom: 0.5em;
+}
+#page-movie .movie-data .movie-synopsis {
+    max-height: 150px;
+    overflow: auto;
+}
+#page-movie .movie-data .movie-staff
+{
+    display:flex;
+}
+#page-movie .movie-data .cast-container,
+#page-movie .movie-data .directors-container {
+    display: inline-block;
+    vertical-align: top;
+    flex:1;
+}
+#page-movie .movie-data .movie-cast,
+#page-movie .movie-data .movie-directors {
+    margin-left: 1em;
+}
+#page-movie .showings-container {
+    padding: 0 1em;
+    height: 100%;
+    flex: 3;
+}
+#page-movie .showings {
+    overflow: auto;
+    height: 300px;
+    padding:0 .5em;
+}
+#page-movie .showings .showing {
+    font-size: 2em;
+    padding: 0.5em;  
+    width: 100%;
+}
+#page-movie .showings .showing .showing-time {
+    font-weight: bold;
+    margin-right: 0.5em;
+    text-align: right;
+}
+#page-movie .showings .showing .showing-type {
+    text-align: left;
+}
+
+/* page-showing */
+#page-showing .content {
+    padding: 0;
+    display:flex;
+    align-items: center;
+}
+#page-showing .showing-tickets-form-container
+{
+    width:70%;
+    margin:0 auto;
+    background-color:#fff;
+    border:solid 1px #e6e6e6;
+    box-shadow: 2px 2px 10px 2px #111;
+    padding:1em;
+    color:#333;
+    display:flex;
+}
+#page-showing .showing-tickets-form-container .showing-tickets-form
+{
+    width:calc(100% - 200px);
+    padding:0 1em;
+    font-size:1.2rem;
+}
+#page-showing .showing-tickets-container {
+    width: 100%;
+}
+#page-showing .showing-tickets-container .showing-description {
+    font-size:1.3em;
+    margin-bottom:.8em;
+}
+#page-showing .showing-tickets {
+    overflow: auto;
+    height: 80%;
+    margin-bottom:2em;
+}
+#page-showing .showing-controls-container {
+    text-align: right;
+    height: 100%;
+}
+#page-showing .showing-tickets .ticket {
+    width: 100%;
+    display:flex;
+    padding:.5em 0;
+    align-items:center;
+}
+#page-showing .showing-tickets .ticket * {
+    flex:1;
+    padding:0 .5em;
+}
+#page-showing .showing-tickets .ticket .ticket-type {
+    padding:0;
+    color: inherit;
+    font-family: inherit;
+}
+#page-showing .showing-tickets .ticket .ticket-quantity-increase,
+#page-showing .showing-tickets .ticket .ticket-quantity-decrease,
+#page-showing .showing-tickets .ticket .ticket-multiplier,
+#page-showing .showing-tickets .ticket .ticket-quantity,
+#page-showing .showing-tickets .ticket .delete-ticket {
+    flex:.5;
+    padding: 0;
+}
+#page-showing .showing-tickets .ticket .ticket-price,
+#page-showing .showing-tickets .ticket .ticket-total {
+    text-align: right;
+}
+#page-showing .add-tickets
+{
+    background-color: transparent;
+    border: none;
+    color: rgb(0, 97, 243);
+    text-shadow: none;
+    font-size: 1.1em;
+    display: block;
+    border-top: solid 1px #ccc;
+    width: 100%;
+}
+#page-showing .ticket-totals-container
+{
+    margin: 1em 0;
+    background-color: #f3f3f3;
+    padding: 10px;
+    border: solid 1px #ddd;
+}
+#page-showing .ticket-totals
+{
+    float:right;
+    font-size:1.3em;
+}
+#page-showing .ticket-totals .title
+{
+    text-align: right;
+    font-weight: bold;
+}
+#page-showing .ticket-totals .currency
+{
+    text-align: right;
+}
+#page-showing .purchase-tickets
+{
+    width:100%;
+}
+
+/* page-purchase, page-purchase-results, and page-ticket-search */
+/* TODO: Make these global classes for each page */
+#page-purchase .content,
+#page-purchase-results .content,
+#page-ticket-search .content
+{
+    padding: 0;
+    display:flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    font-size:1.5em;
+}
+#page-purchase .tickets-container,
+#page-purchase-results .tickets-container,
+#page-ticket-search .search-container
+{
+    width:70%;
+    margin:0 auto;
+    background-color:#fff;
+    border:solid 1px #e6e6e6;
+    box-shadow: 2px 2px 10px 2px #111;
+    padding:1em;
+    color:#333;
+}
+#page-purchase .tickets-container>header,
+#page-purchase .payment-method-options-container>header,
+#page-purchase-results .tickets-container>header,
+#page-purchase-results .payment-method-options-container>header,
+#page-ticket-search .search-container>header,
+#page-ticket-search .options>header
+{
+    font-size:1.4em;
+    margin-bottom:1em;
+}
+#page-purchase .tickets-container .tickets,
+#page-purchase-results .tickets-container .tickets
+{
+    margin-bottom: 2em;
+}
+#page-purchase .tickets-container .ticket,
+#page-purchase-results .tickets-container .ticket
+{
+    display:flex;
+}
+#page-purchase .tickets-container .ticket *,
+#page-purchase-results .tickets-container .ticket *
+{
+    flex:1;
+    margin:.2em 1em;
+}
+#page-purchase .tickets-container .ticket .ticket-movie-title,
+#page-purchase-results .tickets-container .ticket .ticket-movie-title
+{
+    flex:3;
+}
+#page-purchase .tickets-container .ticket .ticket-price,
+#page-purchase-results .tickets-container .ticket .ticket-price
+{
+    text-align:right;
+}
+#page-purchase .tickets-container .ticket .ticket-multiplier,
+#page-purchase .tickets-container .ticket .ticket-quantity,
+#page-purchase-results .tickets-container .ticket .ticket-multiplier,
+#page-purchase-results .tickets-container .ticket .ticket-quantity
+{
+    flex:.5;
+}
+#page-purchase .tickets-container .ticket.tickets-total,
+#page-purchase-results .tickets-container .ticket.tickets-total
+{
+    background-color:#f3f3f3;
+}
+
+/*page-purchase*/
+#page-purchase .payment-method-options-container
+{
+    margin-bottom:2em;
+}
+#page-purchase .payment-method-options
+{
+    display:flex;
+}
+#page-purchase .payment-method-option
+{
+    flex:1;
+    margin:0 1em;
+}
+
+#page-purchase .purchase-option-forms
+{
+    text-align: center;
+}
+#page-purchase .purchase-option-form
+{
+    display:none;
+    font-size:1.3em;
+}
+
+/*page-purchase-results*/
+#page-purchase-results .purchase-status
+{
+    background-color: rgb(100, 167, 55);
+    display: block;
+    padding: .3em 1.5em;
+    border: solid 1px green;
+    color: #fff;
+    font-size: 1.2em;
+    margin-bottom: 1em;
+}
+#page-purchase-results .receipt-data
+{
+    margin-bottom:1em;
+}
+#page-purchase-results .print-tickets
+{
+    float:right;
+    min-width:150px;
+}
+
+/*page-print-tickets and page-print-results*/
+#page-print-tickets .content,
+#page-print-results .content
+{
+    padding: 0;
+    display:flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    font-size:1.5em;
+}
+#page-print-tickets .instructions,
+#page-print-results .instructions
+{
+    margin-bottom:3em;
+}
+#page-print-tickets .tickets-container
+{
+    margin-bottom:1em;
+    overflow-x: hidden;
+    overflow-y: auto;
+    font-size:1.5em;
+}
+
+#page-print-tickets .ticket
+{
+    background-color: #eee;
+    color: #333;
+    width: 800px;
+    height:300px;
+    font-size: .8em;
+    overflow:hidden;
+    margin-bottom:1.5em;
+}
+#page-print-tickets .ticket header
+{
+    background-color:#8a231c;
+    color:#fff;
+    padding:.2em;
+    height:60px;
+}
+#page-print-tickets .ticket header img,
+#page-print-tickets .ticket header .title
+{
+    display:inline-block;
+    vertical-align: middle;
+}
+#page-print-tickets .ticket header img
+{
+    margin-right:20px;
+}
+#page-print-tickets .ticket .ticket-content
+{
+    padding:.5em;
+}
+#page-print-tickets .ticket .main,
+#page-print-tickets .ticket .stub
+{
+    display:inline-block;
+    vertical-align: top;
+    width:60%;
+}
+#page-print-tickets .ticket .main>div,
+#page-print-tickets .ticket .stub>div
+{
+    font-family: 'Courier';
+}
+#page-print-tickets .ticket .main
+{
+    width:60%;
+    height: 100%;
+    border-right: dashed 3px #222;
+}
+#page-print-tickets .ticket .stub
+{
+    width:40%;
+    height: 100%;
+}
+
+#page-print-tickets .ticket .title
+{
+    font-weight:bold;
+}
+
+#page-print-tickets .ticket .admission-data
+{
+    display: flex;
+    width: 100%;
+    font-size: .9em;
+}
+#page-print-tickets .ticket .admission-data-item
+{
+    flex:1;
+    text-align:center;
+}
+#page-print-tickets .ticket .cinema-data
+{
+    font-size: .7em;
+}
+#page-print-tickets .ticket .main .cinema-data
+{
+    display: flex;
+    width: 100%;
+    font-size: .7em;
+}
+#page-print-tickets .ticket .main .cinema-data-item
+{
+    flex:1;
+    text-align:center;
+}
+
+/* page-ticket-search */
+#page-ticket-search .options
+{
+    margin-bottom: 2em;
+}
+#page-ticket-search .buttons
+{
+    display: flex;
+}
+#page-ticket-search .buttons button
+{
+    flex: 1;
+    margin: 0 1em;
+}
+#page-ticket-search .search-options
+{
+    text-align: center;
+}
+#page-ticket-search .search-options .option
+{
+    display: none;
+    font-size: 1.3em;
+}
+#page-ticket-search .message
+{
+    background-color: rgb(196, 37, 37);
+    display: block;
+    padding: .3em 1.5em;
+    border: solid 1px red;
+    color: #fff;
+    font-size: 1.2em;
+    margin-bottom: 1em;
+}
+
+/*******************************************************************************
+            Page Processing 
+*******************************************************************************/
+.loading-image {
+    background-color: #eee;
+    margin: 342px auto;
+    padding: 20px 0;
+    position: relative;
+    width: 60px;
+    height: 140px;
+    
+    background: -webkit-radial-gradient(0 100%, circle, rgba(204,0,0,0) 10px, #8a231c 5px)
+                ,-webkit-radial-gradient(100% 100%, circle, rgba(204,0,0,0) 10px, #8a231c 5px)
+                ,-webkit-radial-gradient(100% 0, circle, rgba(204,0,0,0) 10px, #8a231c 5px)
+                ,-webkit-radial-gradient(0 0, circle, rgba(204,0,0,0) 10px, #8a231c 5px);
+    background-position: bottom left, bottom right, top right, top left;
+    -webkit-background-size: 50% 50%;
+    background-size: 50% 50%;
+    background-repeat: no-repeat;
+
+    animation: rotateplane 1.2s infinite ease-in-out;
+    -webkit-animation: rotateplane 1.2s infinite ease-in-out;
+}
+
+.ticket-border {
+    background-color: #651e19;
+    position: absolute;
+    margin: 0 auto;
+    margin-left: 3px;
+    width: 90%;
+    height: 2px;
+}
+.ticket-border.top {
+    top: 20px;
+}
+.ticket-border.bottom {
+    bottom: 20px;
+}
+
+@-webkit-keyframes rotateplane {
+    0% { -webkit-transform: perspective(120px) }
+    50% { -webkit-transform: perspective(120px) rotateY(180deg) }
+    100% { -webkit-transform: perspective(120px) rotateY(180deg)  rotateX(180deg) }
+}
+
+@keyframes rotateplane {
+    0% { -webkit-transform: perspective(120px) rotateX(0deg) rotateY(0deg) } 
+    50% { -webkit-transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg) } 
+    100% { -webkit-transform: perspective(120px) rotateX(-180deg) rotateY(-180deg) }
+}

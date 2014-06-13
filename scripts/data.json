@@ -1,0 +1,116 @@
+{
+    "ticketTypes": [
+        {
+            "id": 1,
+            "name": "Adult"
+        },
+        {
+            "id": 2,
+            "name": "Child"
+        },
+        {
+            "id": 3,
+            "name": "Senior"
+        },
+        {
+            "id": 4,
+            "name": "Student"
+        }
+    ],
+    "pricings": [
+        {
+            "id": 1,
+            "name": "Standard",
+            "tickets": [
+                {
+                    "id": 1, "price": 10.00
+                },
+                {
+                    "id": 2, "price": 7.00
+                },
+                {
+                    "id": 3, "price": 6.00
+                },
+                {
+                    "id": 4, "price": 8.00
+                }
+            ]
+        },
+        {
+            "id": 2,
+            "name": "3D",
+            "tickets": [
+                {
+                    "id": 1, "price": 12.00
+                },
+                {
+                    "id": 2, "price": 9.00
+                },
+                {
+                    "id": 3, "price": 8.00
+                },
+                {
+                    "id": 4, "price": 10.00
+                }
+            ]
+        },
+        {
+            "id": 3,
+            "name": "IMAX",
+            "tickets": [
+                {
+                    "id": 1, "price": 15.00
+                },
+                {
+                    "id": 2, "price": 12.00
+                },
+                {
+                    "id": 3, "price": 11.00
+                },
+                {
+                    "id": 4, "price": 13.00
+                }
+            ]
+        },
+        {
+            "id": 4,
+            "name": "IMAX 3D",
+            "tickets": [
+                {
+                    "id": 1, "price": 17.00
+                },
+                {
+                    "id": 2, "price": 14.00
+                },
+                {
+                    "id": 3, "price": 13.00
+                },
+                {
+                    "id": 4, "price": 15.00
+                }
+            ]
+        }
+    ],
+    "theaters": [
+        {
+            "id": 1,
+            "name": "Theater 1",
+            "pricing": "Standard"
+        },
+        {
+            "id": 2,
+            "name": "Theater 2",
+            "pricing": "3D"
+        },
+        {
+            "id": 3,
+            "name": "Theater 3",
+            "pricing": "IMAX"
+        },
+        {
+            "id": 4,
+            "name": "Theater 4",
+            "pricing": "IMAX 3D"
+        }
+    ]
+}

@@ -1,0 +1,86 @@
+.ticket
+{
+    background-color: #eee;
+    color: #333;
+    width: 800px;
+    height:300px;
+    font-size: .8em;
+    overflow:hidden;
+    margin-bottom:1.5em;
+}
+.ticket header
+{
+    background-color:#8a231c;
+    color:#fff;
+    padding:.2em;
+    height:60px;
+}
+.ticket header img,
+.ticket header .title
+{
+    display:inline-block;
+    vertical-align: middle;
+}
+.ticket header img
+{
+    margin-right:20px;
+}
+.ticket .ticket-content
+{
+    padding:.5em;
+}
+.ticket .main,
+.ticket .stub
+{
+    display:inline-block;
+    vertical-align: top;
+    width:60%;
+}
+.ticket .main>div,
+.ticket .stub>div
+{
+    font-family: 'Courier';
+}
+.ticket .main
+{
+    width:60%;
+    height: 100%;
+    border-right: dashed 3px #222;
+}
+.ticket .stub
+{
+    width:40%;
+    height: 100%;
+}
+
+.ticket .title
+{
+    font-weight:bold;
+}
+
+.ticket .admission-data
+{
+    display: flex;
+    width: 100%;
+    font-size: .9em;
+}
+.ticket .admission-data-item
+{
+    flex:1;
+    text-align:center;
+}
+.ticket .cinema-data
+{
+    font-size: .7em;
+}
+.ticket .main .cinema-data
+{
+    display: flex;
+    width: 100%;
+    font-size: .7em;
+}
+.ticket .main .cinema-data-item
+{
+    flex:1;
+    text-align:center;
+}
