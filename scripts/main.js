@@ -29,8 +29,9 @@ function InitSlider() {
     };
 }
 function FormatPages() {
-    var slideContainerHeight = $('body').outerHeight() - $('body>header').outerHeight();
-    $('#slide-container').height(slideContainerHeight);
+    //This is causing the footer buttons to be cut off
+    //var slideContainerHeight = $('body').outerHeight() - $('body>header').outerHeight();
+    //$('#slide-container').height(slideContainerHeight);
     $('.cinema-name').html(data.CINEMA_NAME);
 }
 function UpdateClock() {

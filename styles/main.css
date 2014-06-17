@@ -114,7 +114,7 @@ button:focus {
 *******************************************************************************/
 #slide-container {
     width: 100%;
-    height: 100%;
+    height: 90%;
 }
 #slide-container .slide .page {
     overflow: hidden;
