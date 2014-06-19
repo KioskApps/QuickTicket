@@ -1,8 +1,4 @@
 /**
- * @fileOverview Theater class
- */
-
-/**
  * The Theater class represents a theater in which Showings for a specific 
  * Movie are held.
  * <p>

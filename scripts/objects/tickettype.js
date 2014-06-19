@@ -1,8 +1,4 @@
 /**
- * @fileOverview TicketType class
- */
-
-/**
  * The TicketType class represents a defined type of Ticket, such as 
  * "Adult" or "Child".
  * <p>

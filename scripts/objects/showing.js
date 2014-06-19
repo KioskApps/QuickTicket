@@ -1,8 +1,4 @@
 /**
- * @fileOverview Showing class
- */
-
-/**
  * The Showing class represents a showtime for a specific Movie in a specific 
  * Theater.
  * @param {number} id the ID of this Showing

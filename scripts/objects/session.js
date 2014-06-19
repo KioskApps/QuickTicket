@@ -1,8 +1,4 @@
 /**
- * @fileOverview Session class
- */
-
-/**
  * The Session class represents the current user's session.
  * <p>
  * A Session contains only two properties, the current selected Showing, and 

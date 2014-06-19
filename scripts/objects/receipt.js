@@ -1,8 +1,4 @@
 /**
- * @fileOverview Receipt class
- */
-
-/**
  * The Receipt class represents a receipt of selected 
  * Tickets for a specific Showing. It also contains 
  * payment information.
@@ -81,7 +77,12 @@ function Receipt(showing) {
         
         return ticketQuantities;
     };
-    
+    /**
+     * Creates an object containing the minimum receipt information to 
+     * recreate tickets for printing. This object is used to store the 
+     * receipt externally.
+     * @returns {Object}
+     */
     this.createStorageObject = function() {
         var store = {};
         

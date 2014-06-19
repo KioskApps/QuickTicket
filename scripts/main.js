@@ -1,9 +1,4 @@
 //Global Vars
-var SlidePosition = {
-    LEFT : "left", 
-    RIGHT : "right"
-};
-
 var SECTION_ANIMATION = 200;
 
 var CurrentSession;
@@ -398,6 +393,18 @@ function FormatDecimalFromCurrency(value)
 {
     return parseFloat(value.substr(1));
 }
+function SetButtonStatus(button, validationFunction, validationString)
+{
+    var isValid = validationFunction(validationString);
+    if(isValid)
+    {
+        button.removeAttr('disabled');
+    }
+    else
+    {
+        button.attr('disabled', 'disabled');
+    }
+}
 
 /*******************************************************************************
  * Listeners and Event Handlers
@@ -680,26 +687,4 @@ function ReturnMovie_ClickHandler(e)
 function ReturnShowing_ClickHandler(e)
 {
     slider.navigateTo('#page-showing', slider.Direction.LEFT);
-}
-
-function PrerequisiteComplete(e)
-{
-    var targetPage = $(e.target);
-    OpenPage('#' + targetPage.attr('id'), targetPage.data('slidePosition'));
-    targetPage.removeData('slidePosition');
-}
-
-
-
-function SetButtonStatus(button, validationFunction, validationString)
-{
-    var isValid = validationFunction(validationString);
-    if(isValid)
-    {
-        button.removeAttr('disabled');
-    }
-    else
-    {
-        button.attr('disabled', 'disabled');
-    }
 }

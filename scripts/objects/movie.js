@@ -1,8 +1,4 @@
 /**
- * @fileOverview Movie class
- */
-
-/**
  * A Movie object defines an individual movie that can be 
  * attached to Showings.
  * <p>

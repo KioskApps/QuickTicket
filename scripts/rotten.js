@@ -1,11 +1,4 @@
-/**
- * @fileOverview Rotten Tomatoes API
- */
-
-/**
- * Rotten Tomatoes API Namespace
- * @type {Object}
- */
+//Rotten Tomatoes Scope
 var rotten = {};
 
 /**
@@ -73,10 +66,6 @@ rotten.getMoviePoster = function(url, movie) {
             if (xhr.status === 200) {
                 movie.posterUrl = window.URL.createObjectURL(xhr.response);
                 $('.movies-carousel .movie[data-id="' + movie.id + '"] .movie-poster').attr('src', movie.posterUrl);
-            }
-            else {
-                console.log('Could not retrieve poster: ' + xhr.responseText);
-                //TODO: 404 Not Found Movie Poster
             }
         } 
     };

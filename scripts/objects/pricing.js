@@ -1,8 +1,4 @@
 /**
- * @fileOverview Pricing class
- */
-
-/**
  * The Pricing class is used to group several Ticket 
  * objects under one price name scheme.
  * <p>

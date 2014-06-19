@@ -1,8 +1,4 @@
 /**
- * @fileOverview Ticket class
- */
-
-/**
  * The Ticket class represents a TicketType and its associated price.
  * <p>
  * TicketTypes can be universal, such as "Adult" or "Child", but the price for 
