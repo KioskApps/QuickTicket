@@ -9,6 +9,7 @@ function Init() {
     CurrentSession = new Session();
     AddListeners();
     InitSlider();
+    InitStillThere();
     FormatPages();
     UpdateClock();
     slider.navigateTo('#page-processing', slider.Direction.LEFT);
@@ -22,6 +23,19 @@ function InitSlider() {
     slider.navigateTo = function(page, direction, beforeOpen, param) {
         slider.slide('#slide-container', page, direction, beforeOpen, param);
     };
+}
+function InitStillThere() {
+    stillthere.addEventListener(stillthere.Event.LOADED, function() {
+        stillthere.showTimeout();
+    });
+    
+    stillthere.addEventListener(stillthere.Event.STILL_THERE, function() {
+        stillthere.overlay.find('.message').html('Are you still there?');
+    });
+    stillthere.addEventListener(stillthere.Event.TIMEOUT, function() {
+        stillthere.overlay.find('.message').html('Touch to Begin');
+        ReturnMainMenu_ClickHandler();
+    });
 }
 function FormatPages() {
     //This is causing the footer buttons to be cut off
