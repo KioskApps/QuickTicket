@@ -424,6 +424,12 @@ button:focus {
 #page-showing .showing-tickets .ticket .ticket-total {
     text-align: right;
 }
+#page-showing .ticket-types {
+    display: flex;
+}
+#page-showing .ticket-types * {
+    flex: 1;
+}
 #page-showing .add-tickets
 {
     background-color: transparent;

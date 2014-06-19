@@ -38,9 +38,6 @@ function InitStillThere() {
     });
 }
 function FormatPages() {
-    //This is causing the footer buttons to be cut off
-    //var slideContainerHeight = $('body').outerHeight() - $('body>header').outerHeight();
-    //$('#slide-container').height(slideContainerHeight);
     $('.cinema-name').html(data.CINEMA_NAME);
 }
 function UpdateClock() {
@@ -59,7 +56,7 @@ function UpdateClock() {
 }
 
 
-function AddTicket(clearExisting) {
+function AddTicket(clearExisting, type) {
     var tickets = $('#page-showing .showing-tickets .ticket');
     if (clearExisting) {
         $('#page-showing .showing-tickets').empty();
@@ -73,36 +70,41 @@ function AddTicket(clearExisting) {
         }
     });
     
-    var ticketsDisplayed = tickets.length;
     var ticket = $('<div/>').addClass('ticket').css('display', 'none').attr('data-id', ticketID);
     ticket.append($('<span/>').addClass('showing-time').html(CurrentSession.showing.time));
     ticket.append($('<span/>').addClass('showing-type').html(CurrentSession.showing.theater.pricing.name));
-    ticket.append($('<select/>').addClass('ticket-type'));
+    if (type) {
+        ticket.append($('<span/>').addClass('ticket-type').html(type));
+    }
+    else {
+        ticket.append($('<select/>').addClass('ticket-type'));
+    }
     ticket.append($('<span/>').addClass('ticket-price'));
     ticket.append($('<span/>').addClass('ticket-multiplier').html('x'));
     ticket.append($('<span/>').addClass('ticket-quantity').html('1'));
     ticket.append($('<button/>').addClass('ticket-quantity-decrease').html('-').click(Showing_TicketQuantityDecrease_ClickHandler));
     ticket.append($('<button/>').addClass('ticket-quantity-increase').html('+').click(Showing_TicketQuantityIncrease_ClickHandler));
     ticket.append($('<span/>').addClass('ticket-total'));
-    ticket.append($('<button/>').addClass('delete-ticket').css('visibility', 'hidden').html('X'));
+    ticket.append($('<button/>').addClass('delete-ticket').html('X').click(Showing_DeleteTickets_ClickHandler));
     
     $('#page-showing .showing-tickets').append(ticket);
     
-    if(ticketsDisplayed > 0) {
-        var deleteButton = $('#page-showing .ticket[data-id="' + ticketID + '"] .delete-ticket');
-        deleteButton.css('visibility', 'visible');
-        deleteButton.click(Showing_DeleteTickets_ClickHandler);
-    }
-    $('#page-showing .ticket-type').each(function() {
-        var showingTicketType = $(this);
-        if (showingTicketType.children().length === 0) {
-            var tickets = CurrentSession.showing.theater.pricing.tickets;
-            for (var i = 0; i < tickets.length; i++) {
-                var ticketTypeString = '<option value="' + tickets[i].ticketType.name + '">' + tickets[i].ticketType.name + '</option>';
-                showingTicketType.append(ticketTypeString);
+    if (!type) {
+        $('#page-showing .ticket-type').each(function() {
+            var showingTicketType = $(this);
+            if (showingTicketType.children().length === 0) {
+                var tickets = CurrentSession.showing.theater.pricing.tickets;
+                for (var i = 0; i < tickets.length; i++) {
+                    var selected = '';
+                    if (type && tickets[i].ticketType.name === type) {
+                        selected = ' selected';
+                    }
+                    var ticketTypeString = '<option value="' + tickets[i].ticketType.name + '"' + selected + '>' + tickets[i].ticketType.name + '</option>';
+                    showingTicketType.append(ticketTypeString);
+                }
             }
-        }
-    });
+        });
+    }
     
     $('#page-showing .ticket[data-id="' + ticketID + '"] .ticket-type').change(Showing_TicketType_ChangeHandler);
     
@@ -324,11 +326,22 @@ function Prerequisite_Movie(movie) {
 }
 function Prerequisite_Showing() {
     var pageShowing = $('#page-showing');
+    
     CurrentSession.showing.movie.setMovieData(pageShowing);
     CurrentSession.showing.setShowingData(pageShowing);
     CurrentSession.showing.theater.setTheaterData(pageShowing);
 
-    AddTicket(true);
+    var types = pageShowing.find('.ticket-types');
+    types.empty();
+    var tickets = CurrentSession.showing.theater.pricing.tickets;
+    for (var i = 0; i < tickets.length; i++) {
+        var button = $('<button/>').click(function() {
+            AddTicket(false, $(this).html());
+        });
+        button.html(tickets[i].ticketType.name);
+        types.append(button);
+    }
+    AddTicket(true, 'Adult');
 }
 function Prerequisite_Purchase() {
     var receipt = new Receipt(CurrentSession.showing);
