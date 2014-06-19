@@ -7,9 +7,11 @@ chrome.app.runtime.onLaunched.addListener(function() {
         }
     }, function(window) {
         window.onClosed.addListener(function() {
-            setBounds(true);            
+            setBounds(true);
+            setKeyboard(false);
         });
         setBounds(false);
+        setKeyboard(true);
     });
 });
 
@@ -55,3 +57,11 @@ function setBounds(restore) {
         }
     });
 };
+
+function setKeyboard(enable) {
+    if(chrome.accessibilityFeatures) {
+        chrome.accessibilityFeatures.virtualKeyboard.set({ 
+            value: enable 
+        });
+    }
+}
