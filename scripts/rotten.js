@@ -47,7 +47,7 @@
             movie.title = m.title;
             movie.rating = m.mpaa_rating;
             movie.runtime = m.runtime + ' min';
-            rotten.getMoviePoster(m.posters.original, movie);
+            rotten.getMoviePoster(m.posters.detailed, movie);
             movie.synopsis = m.synopsis;
             for (var j = 0; j < m.abridged_cast.length; j++) {
                 movie.cast.push(m.abridged_cast[j].name);

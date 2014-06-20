@@ -75,7 +75,6 @@ main.initialize = function() {
     $('#page-showing .purchase-tickets').click(function() {
         slider.navigateTo('#page-purchase', slider.Direction.RIGHT, main.purchaseBeforeOpen);
     });
-    $('#page-showing .add-tickets').click(main.addTicket);
     
     //Page-Purchase
     $('#page-purchase').on(swiper.EVENT, main.purchaseSwiper);
@@ -158,100 +157,127 @@ main.start = function() {
  * If the type is set, a ticket with the appropriate TicketType will be 
  * displayed. Otherwise, a dropdown menu will be used to allow the user to 
  * specify the TicketType.
- * @param {boolean} clearExisting if true, clear the existing tickets
  * @param {string} type define the TicketType of the ticket to add
+ * @param {boolean} clearExisting if true, clear the existing tickets
  * @returns {undefined}
  */
-main.addTicket = function(clearExisting, type) {
-    var tickets = $('#page-showing .showing-tickets .ticket');
+main.addTicket = function(type, clearExisting) {
     if (clearExisting) {
         $('#page-showing .showing-tickets').empty();
-        tickets = [];
     }
-    var ticketID = Math.floor((Math.random() * 1000) + 1000);
-    $.each($(tickets), function() {
-        var id = parseInt($(this).attr('data-id'));
-        if (id === ticketID) {
-            ticketID = Math.floor((Math.Random * 1000) + 1000);
+    var tickets = $('#page-showing .showing-tickets .ticket');
+    
+    var ticketType;
+    var theaterTickets = main.session.showing.theater.pricing.tickets;
+    for (var i = 0; i < theaterTickets.length; i++) {
+        if (type === theaterTickets[i].ticketType.name) {
+            ticketType = type;
+            break;
         }
-    });
-    
-    var ticket = $('<div/>').addClass('ticket').css('display', 'none').attr('data-id', ticketID);
-    ticket.append($('<span/>').addClass('showing-time').html(main.session.showing.time));
-    ticket.append($('<span/>').addClass('showing-type').html(main.session.showing.theater.pricing.name));
-    if (type) {
-        ticket.append($('<span/>').addClass('ticket-type').html(type));
     }
-    else {
-        ticket.append($('<select/>').addClass('ticket-type'));
+    if (!ticketType && theaterTickets.length > 0) {
+        ticketType = theaterTickets[0].ticketType.name;
     }
-    ticket.append($('<span/>').addClass('ticket-price'));
-    ticket.append($('<span/>').addClass('ticket-multiplier').html('x'));
-    ticket.append($('<span/>').addClass('ticket-quantity').html('1'));
-    //Add listener to decrease ticket quantity
-    ticket.append($('<button/>').addClass('ticket-quantity-decrease').html('-').click(function(e) {
-        var ticketID = $(e.target).closest('.ticket').attr('data-id');
-        main.modifyTicketQuantity(ticketID, false);
-    }));
-    //Add listener to increase ticket quantity
-    ticket.append($('<button/>').addClass('ticket-quantity-increase').html('+').click(function(e) {
-        var ticketID = $(e.target).closest('.ticket').attr('data-id');
-        main.modifyTicketQuantity(ticketID, true);
-    }));
-    ticket.append($('<span/>').addClass('ticket-total'));
-    //Add listener to remove ticket with delete button
-    ticket.append($('<button/>').addClass('delete-ticket').html('X').click(function(e) {
-        var ticketID = $(e.target).closest('.ticket').attr('data-id');
-        main.addTicket(ticketID);
-    }));
     
-    $('#page-showing .showing-tickets').append(ticket);
+    var ticket;
+    for (var i = 0; i < tickets.length; i++) {
+        var t = $(tickets[i]);
+        if (t.attr('data-type') === ticketType) {
+            ticket = t;
+            break;
+        }
+    }
     
-    if (!type) {
-        $('#page-showing .ticket-type').each(function() {
-            var showingTicketType = $(this);
-            if (showingTicketType.children().length === 0) {
-                var tickets = main.session.showing.theater.pricing.tickets;
+    if (!ticket) {
+        var ticket = $('<div/>').addClass('ticket').css('display', 'none').attr('data-type', ticketType);
+        ticket.append($('<span/>').addClass('showing-time').html(main.session.showing.time));
+        ticket.append($('<span/>').addClass('showing-type').html(main.session.showing.theater.pricing.name));
+        ticket.append($('<span/>').addClass('ticket-type').html(ticketType));
+        ticket.append($('<span/>').addClass('ticket-price'));
+        ticket.append($('<span/>').addClass('ticket-multiplier').html('x'));
+        ticket.append($('<span/>').addClass('ticket-quantity').html('1'));
+        //Add listener to decrease ticket quantity
+        ticket.append($('<button/>').addClass('ticket-quantity-decrease').html('-').click(function(e) {
+            var t = $(e.target).closest('.ticket').attr('data-type');
+            main.modifyTicketQuantity(t, false);
+        }));
+        //Add listener to increase ticket quantity
+        ticket.append($('<button/>').addClass('ticket-quantity-increase').html('+').click(function(e) {
+            var t = $(e.target).closest('.ticket').attr('data-type');
+            main.modifyTicketQuantity(t, true);
+        }));
+        ticket.append($('<span/>').addClass('ticket-total'));
+        //Add listener to remove ticket with delete button
+        ticket.append($('<button/>').addClass('delete-ticket').html('X').click(function(e) {
+            var t = $(e.target).closest('.ticket').attr('data-type');
+            main.removeTicket(t);
+        }));
+        
+        var index = 0;
+        for (var i = 0; i < theaterTickets.length; i++) {
+            if (ticketType === theaterTickets[i].ticketType.name) {
+                index = i;
+                break;
+            }
+        }
+        
+        if (tickets.length > 0) {
+            var inserted = false;
+            
+            if (index === 0) {
+                $('#page-showing .showing-tickets').prepend(ticket);
+                inserted = true;
+            }
+            else {
                 for (var i = 0; i < tickets.length; i++) {
-                    var selected = '';
-                    if (type && tickets[i].ticketType.name === type) {
-                        selected = ' selected';
+                    var t = $(tickets[i]);
+                    var tIndex = 0;
+                    for (var j = 0; j < theaterTickets.length; j++) {
+                        if (t.attr('data-type') === theaterTickets[j].ticketType.name) {
+                            tIndex = j;
+                        }
                     }
-                    var ticketTypeString = '<option value="' + tickets[i].ticketType.name + '"' + selected + '>' + tickets[i].ticketType.name + '</option>';
-                    showingTicketType.append(ticketTypeString);
+                    if (index === (tIndex - 1)) {
+                        ticket.insertBefore(t);
+                        inserted = true;
+                        break;
+                    }
                 }
             }
-        });
+        }
+        
+        if (tickets.length === 0 || !inserted) {
+            $('#page-showing .showing-tickets').append(ticket);
+        }
+            
+        ticket.show(main.SECTION_ANIMATION);
+    }
+    else {
+        main.modifyTicketQuantity(ticketType, true);
     }
     
-    $('#page-showing .ticket[data-id="' + ticketID + '"] .ticket-type').change(function() {
-        main.updateTickets();
-    });
-    
     main.updateTickets();
-    
-    $('#page-showing .ticket[data-id="' + ticketID + '"]').show(main.SECTION_ANIMATION);
 };
 /**
  * Removes a Ticket from the showing page by its ticket ID.
- * @param {string} ticketId the ID of the ticket to remove
+ * @param {string} type the type of the ticket to remove
  * @returns {undefined}
  */
-main.removeTicket = function(ticketId) {
-    $('#page-showing .showing-tickets .ticket[data-id="' + ticketId + '"]').hide(main.SECTION_ANIMATION, function(){
+main.removeTicket = function(type) {
+    $('#page-showing .showing-tickets .ticket[data-type="' + type + '"]').hide(main.SECTION_ANIMATION, function(){
         $(this).remove();
         main.updateTickets();
     });
 };
 /**
  * Modifies the quantity of a ticket on the showing page.
- * @param {string} ticketId the ID of the ticket to modify
+ * @param {string} type the type of the ticket to modify
  * @param {boolean} increase if true, increase the quantity by one, otherwise 
  *      decrease by one
  * @returns {undefined}
  */
-main.modifyTicketQuantity = function(ticketId, increase) {
-    var ticketQuantity = $('#page-showing .showing-tickets .ticket[data-id="' + ticketId + '"] .ticket-quantity');
+main.modifyTicketQuantity = function(type, increase) {
+    var ticketQuantity = $('#page-showing .showing-tickets .ticket[data-type="' + type + '"] .ticket-quantity');
     var newQuantity = 0;
     if (increase) {
         newQuantity = parseInt(ticketQuantity.html()) + 1;
@@ -274,10 +300,7 @@ main.updateTickets = function() {
     var totalPrice = 0;
     $.each($('#page-showing .ticket'), function() {
        var ticket = $(this);
-       var ticketType = $('.ticket-type option:selected', ticket).val();
-       if (typeof ticketType === 'undefined') {
-           ticketType = $('.ticket-type').html();
-       }
+       var ticketType = ticket.attr('data-type');
        var tickets = main.session.showing.theater.pricing.tickets;
        var price = 0.00;
        for (var i = 0; i < tickets.length; i++) {
@@ -486,12 +509,12 @@ main.showingBeforeOpen = function() {
     var tickets = main.session.showing.theater.pricing.tickets;
     for (var i = 0; i < tickets.length; i++) {
         var button = $('<button/>').click(function() {
-            main.addTicket(false, $(this).html());
+            main.addTicket($(this).html());
         });
         button.html(tickets[i].ticketType.name);
         types.append(button);
     }
-    main.addTicket(true, 'Adult');
+    main.addTicket('', true);
 };
 
 /**
