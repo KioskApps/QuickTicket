@@ -468,7 +468,6 @@ button:focus {
 }
 
 /* page-purchase, page-purchase-results, and page-ticket-search */
-/* TODO: Make these global classes for each page */
 #page-purchase .content,
 #page-purchase-results .content,
 #page-ticket-search .content

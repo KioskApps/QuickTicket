@@ -324,7 +324,7 @@ main.createTicketSummary = function() {
 main.createTicketTotalDiv = function(priceHtml) {
     var totalTitle = '';
     if(priceHtml.indexOf('$') > -1) {
-        totalTitle = '<strong>Total</strong>'
+        totalTitle = '<strong>Total</strong>';
     }
     
     var totalTicket = new Ticket();
@@ -842,6 +842,7 @@ main.setButtonStatus = function(button, validateFunction, validateString) {
 /**
  * Converts a Number value into a currency formatted String.
  * @param {number} value the value to format
+ * @param {boolean} hideSign if true, hide the '$' sign
  * @returns {string} value formatted as a currency String
  */
 main.formatCurrency = function(value, hideSign) {

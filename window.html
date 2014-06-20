@@ -1,263 +1,291 @@
 <!DOCTYPE html>
 <html>
-  <head>
-      <title></title>
-      
-      <link rel="stylesheet" type="text/css" href="styles/main.css">
-      <link rel="stylesheet" type="text/css" href="styles/slider.css">
-      <link rel="stylesheet" type="text/css" href="styles/stillthere.css">
-      
-      <script src="scripts/lib/jquery-2.1.1.min.js"></script>
-      <script src="scripts/lib/sandbox.js"></script>
-      <script src="scripts/lib/slider.js"></script>
-      <script src="scripts/lib/spreadsheet.js"></script>
-      <script src="scripts/lib/swiper.js"></script>
-      <script src="scripts/lib/stripe.js"></script>
-      <script src="scripts/lib/stillthere.js"></script>
-      
-      <script src="scripts/main.js"></script>
-      
-      <script src="scripts/data.js"></script>
-      <script src="scripts/rotten.js"></script>
-      
-      <script src="scripts/objects/movie.js"></script>
-      <script src="scripts/objects/pricing.js"></script>
-      <script src="scripts/objects/receipt.js"></script>
-      <script src="scripts/objects/session.js"></script>
-      <script src="scripts/objects/showing.js"></script>
-      <script src="scripts/objects/theater.js"></script>
-      <script src="scripts/objects/ticket.js"></script>
-      <script src="scripts/objects/tickettype.js"></script>
-  </head>
-  <body>
-      <header class="float-group">
-          <div class="cinema"><img src="images/ioCinemaIcon.png" alt="" /><span class="cinema-name"></span></div>
-          <div class="clock"><span class="clock-hours"></span><span>:</span><span class="clock-minutes"></span> <span class="clock-ampm"></span></div>
-      </header>
-      <div id="slide-container" class="slider"></div>
-      
-      <div class="hidden">
-          <div id="pages">
-              <div class="page" id="page-processing">
-                    <div class="loading-pulse"></div>
-                    <div class="loading-image">
-                      <div class="ticket-border top"></div>
-                      <div class="ticket-border bottom"></div>
-                    </div>
-              </div>
-              <div class="page" id="page-screensaver">
-                    <p>Touch anywhere to begin</p>
-              </div>
-              <div class="page" id="page-initial">
-                    <img class="hero-image" src="images/hero-images/001.png" />
-                    <div class="initial-buttons">
-                        <button class="purchase-tickets"><img class="icon" src="images/purchaseTicketsIcon.png" /><span class="description">Purchase Tickets</span></button>
-                        <button class="print-tickets"><img class="icon" src="images/printTicketsIcon.png" /><span class="description">Print Tickets</span></button>
-                    </div>
-              </div>
-              <div class="page" id="page-movies">
-                    <header>Now Playing...</header>
+<head>
+    <title></title>
+
+    <link rel="stylesheet" type="text/css" href="styles/main.css">
+    <link rel="stylesheet" type="text/css" href="styles/slider.css">
+    <link rel="stylesheet" type="text/css" href="styles/stillthere.css">
+
+    <script src="scripts/lib/jquery-2.1.1.min.js"></script>
+    <script src="scripts/lib/sandbox.js"></script>
+    <script src="scripts/lib/slider.js"></script>
+    <script src="scripts/lib/spreadsheet.js"></script>
+    <script src="scripts/lib/swiper.js"></script>
+    <script src="scripts/lib/stripe.js"></script>
+    <script src="scripts/lib/stillthere.js"></script>
+
+    <script src="scripts/main.js"></script>
+
+    <script src="scripts/data.js"></script>
+    <script src="scripts/rotten.js"></script>
+
+    <script src="scripts/objects/movie.js"></script>
+    <script src="scripts/objects/pricing.js"></script>
+    <script src="scripts/objects/receipt.js"></script>
+    <script src="scripts/objects/session.js"></script>
+    <script src="scripts/objects/showing.js"></script>
+    <script src="scripts/objects/theater.js"></script>
+    <script src="scripts/objects/ticket.js"></script>
+    <script src="scripts/objects/tickettype.js"></script>
+</head>
+
+<body>
+    <header class="float-group">
+        <div class="cinema">
+            <img src="images/ioCinemaIcon.png" alt="" /><span class="cinema-name"></span>
+        </div>
+        <div class="clock"><span class="clock-hours"></span><span>:</span><span class="clock-minutes"></span> <span class="clock-ampm"></span></div>
+    </header>
+    
+    <div id="slide-container" class="slider"></div>
+
+    <div class="hidden">
+        <div id="pages">
+            <div class="page" id="page-processing">
+                <div class="loading-image">
+                    <div class="ticket-border top"></div>
+                    <div class="ticket-border bottom"></div>
+                </div>
+            </div>
+            
+            <div class="page" id="page-initial">
+                <img class="hero-image" src="images/hero-images/001.png" alt=""/>
+                <div class="initial-buttons">
+                    <button class="purchase-tickets">
+                        <img class="icon" src="images/purchaseTicketsIcon.png" alt=""/><span>Purchase Tickets</span>
+                    </button>
+                    <button class="print-tickets">
+                        <img class="icon" src="images/printTicketsIcon.png" alt=""/><span>Print Tickets</span>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="page" id="page-movies">
+                <header>Now Playing...</header>
+                <div class="content">
+                    <div class="movies-carousel"></div>
+                </div>
+                <footer>
+                    <button class="return-main-menu">Return to Main Menu</button>
+                </footer>
+            </div>
+            
+            <div class="page" id="page-movie">
+                <div class="movie-hero movie-poster"></div>
+                <div class="movie-content">
+                    <header>
+                        <div class="movie-title"></div>
+                    </header>
                     <div class="content">
-                        <div class="movies-carousel"></div>
-                    </div>
-                    <footer>
-                        <button class="return-main-menu">Return to Main Menu</button>
-                    </footer>
-              </div>
-              <div class="page" id="page-movie">
-                    <div class="movie-hero movie-poster"></div>
-                    <div class="movie-content">
-                        <header>
-                            <div class="movie-title"></div>
-                        </header>
-                        <div class="content">
-                            <div class="poster-strip">
-                                <div class="poster-container">
-                                    <img class="movie-poster" src="" alt=""/>
-                                    <div class="movie-rating"><span class="title">Rating: </span><span class="rating"></span></div>
-                                </div>
-                                <div class="poster-strip-content">
-                                    <div class="movie-data">
-                                        <header>Synopsis</header>
-                                        <div class="movie-runtime"></div>
-                                        <div class="movie-synopsis"></div>
-                                        <div class="movie-staff">
-                                            <div class="cast-container">
-                                                <header>Cast</header>
-                                                <div class="movie-cast"></div>
-                                            </div>
-                                            <div class="directors-container">
-                                                <header>Directors</header>
-                                                <div class="movie-directors"></div>
-                                            </div>
-                                        </div>
-                                    </div>    
-                                    <div class="showings-container">
-                                        <header>Select a Showing</header>
-                                        <div class="showings"></div>                                 
-                                    </div> 
-                                </div>
-                            </div>
-                        </div>
-                        <footer>
-                            <button class="return-movies">Back to Movies</button>
-                            <button class="return-main-menu">Back to Main Menu</button>
-                        </footer>
-                    </div>
-              </div>
-              <div class="page" id="page-showing">
-                    <header>Select Your Tickets</header>
-                    <div class="content">
-                        <div class="showing-tickets-form-container">
+                        <div class="poster-strip">
                             <div class="poster-container">
-                                <img class="movie-poster" src="" alt=""/>
-                                <div class="movie-rating"><span class="title">Rating: </span><span class="rating"></span></div>
+                                <img class="movie-poster" src="" alt="" />
+                                <div class="movie-rating"><span class="title">Rating: </span><span class="rating"></span>
+                                </div>
                             </div>
-                            <div class="showing-tickets-form">
-                                <div class="showing-tickets-container">
-                                    <div class="showing-description"><span class="theater-name"></span> (<span class="theater-type"></span>) <span class="showing-time"></span></div>
-                                    <div class="showing-tickets"></div>
-                                    <div class="ticket-types"></div>
-                                    <button class="add-tickets">Add a different type of ticket</button>
+                            <div class="poster-strip-content">
+                                <div class="movie-data">
+                                    <header>Synopsis</header>
+                                    <div class="movie-runtime"></div>
+                                    <div class="movie-synopsis"></div>
+                                    <div class="movie-staff">
+                                        <div class="cast-container">
+                                            <header>Cast</header>
+                                            <div class="movie-cast"></div>
+                                        </div>
+                                        <div class="directors-container">
+                                            <header>Directors</header>
+                                            <div class="movie-directors"></div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="ticket-totals-container float-group">
-                                    <table class="ticket-totals ">
-                                        <tr><td class="title">Subtotal:</td><td class="currency-symbol">$</td><td class="currency tickets-grand-total"></td></tr>
-                                        <tr><td class="title">Tax:</td><td class="currency-symbol">$</td><td class="currency">0.00</td></tr>
-                                        <tr><td class="title">Total:</td><td class="currency-symbol">$</td><td class="currency tickets-grand-total"></td></tr>
-                                    </table>
-                                </div>
-                                <div class="showing-controls-container float-group">
-                                    <button class="purchase-tickets">Purchase Ticket(s)</button>
+                                <div class="showings-container">
+                                    <header>Select a Showing</header>
+                                    <div class="showings"></div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <footer>
-                        <button class="return-movie">Back to Movie</button>
+                        <button class="return-movies">Back to Movies</button>
                         <button class="return-main-menu">Back to Main Menu</button>
                     </footer>
-              </div>
-              <div class="page" id="page-purchase">
-                    <header>Puchase Tickets</header>
-                    <div class="content">
-                        <div class="tickets-container">
-                            <header>Purchase Summary</header>
-                            <div class="tickets"></div>
-                            <div class="payment-method-options-container">
-                                <header>Select a payment method</header>
-                                <div class="payment-method-options">
-                                    <button class="payment-method-option cash">Cash</button>
-                                    <button class="payment-method-option card">Card</button>
-                                    <button class="payment-method-option gift">Gift</button>
-                                </div>
+                </div>
+            </div>
+            
+            <div class="page" id="page-showing">
+                <header>Select Your Tickets</header>
+                <div class="content">
+                    <div class="showing-tickets-form-container">
+                        <div class="poster-container">
+                            <img class="movie-poster" src="" alt="" />
+                            <div class="movie-rating"><span class="title">Rating: </span><span class="rating"></span>
                             </div>
-                            <div class="purchase-option-forms">
-                                <div class="purchase-option-form cash">
-                                    <div>
-                                        <header>Please Insert Cash</header>
-                                        <div class="action-indicator"></div>
-                                    </div>
+                        </div>
+                        <div class="showing-tickets-form">
+                            <div class="showing-tickets-container">
+                                <div class="showing-description"><span class="theater-name"></span> (<span class="theater-type"></span>) <span class="showing-time"></span>
                                 </div>
-                                <div class="purchase-option-form card">
-                                    <div>
-                                        <header>Please Swipe Your Credit Card</header>
-                                        <div class="action-indicator"></div>
-                                    </div>
-                                </div>
-                                <div class="purchase-option-form gift">
-                                    <div>
-                                        <header>Please Swipe Your Gift Card</header>
-                                        <div class="action-indicator"></div>
-                                    </div>
-                                </div>
+                                <div class="showing-tickets"></div>
+                                <div class="ticket-types"></div>
+                                <button class="add-tickets">Add a different type of ticket</button>
+                            </div>
+                            <div class="ticket-totals-container float-group">
+                                <table class="ticket-totals ">
+                                    <tr>
+                                        <td class="title">Subtotal:</td>
+                                        <td class="currency-symbol">$</td>
+                                        <td class="currency tickets-grand-total"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="title">Tax:</td>
+                                        <td class="currency-symbol">$</td>
+                                        <td class="currency">0.00</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="title">Total:</td>
+                                        <td class="currency-symbol">$</td>
+                                        <td class="currency tickets-grand-total"></td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="showing-controls-container float-group">
+                                <button class="purchase-tickets">Purchase Ticket(s)</button>
                             </div>
                         </div>
                     </div>
-                    <footer>
-                        <button class="return-showing">Back to Showing</button>
-                        <button class="return-main-menu">Back to Main Menu</button>
-                    </footer>
-              </div>
-              <div class="page" id="page-purchase-results">
-                    <header>Purchase Tickets</header>
-                    <div class="content">                        
-                        <div class="tickets-container float-group">
-                            <header>Purchase Summary</header>
-                            <div class="purchase-status"></div>
-                            <div class="receipt-data">
+                </div>
+                <footer>
+                    <button class="return-movie">Back to Movie</button>
+                    <button class="return-main-menu">Back to Main Menu</button>
+                </footer>
+            </div>
+            
+            <div class="page" id="page-purchase">
+                <header>Purchase Tickets</header>
+                <div class="content">
+                    <div class="tickets-container">
+                        <header>Purchase Summary</header>
+                        <div class="tickets"></div>
+                        <div class="payment-method-options-container">
+                            <header>Select a payment method</header>
+                            <div class="payment-method-options">
+                                <button class="payment-method-option cash">Cash</button>
+                                <button class="payment-method-option card">Card</button>
+                                <button class="payment-method-option gift">Gift</button>
+                            </div>
+                        </div>
+                        <div class="purchase-option-forms">
+                            <div class="purchase-option-form cash">
                                 <div>
-                                    <div>Payment Type: <span class="payment-type"></span></div>
-                                    <div class="payment-type-info"></div>
+                                    <header>Please Insert Cash</header>
+                                    <div class="action-indicator"></div>
                                 </div>
                             </div>
-                            <div class="tickets"></div>
-                            <button class="print-tickets">Print Tickets</button>
-                        </div>
-                    </div>
-                    <footer>
-                        <button class="return-main-menu">Back to Main Menu</button>
-                    </footer>
-              </div>
-              <div class="page" id="page-ticket-search">  
-                    <div class="content">
-                        <div class="search-container">
-                            <header>Purchase Tickets</header>
-                            <div class="message"></div>
-                            <div class="options">
-                                <header>Select your method of ticket retrieval.</header>
-                                <div class="buttons">
-                                    <button class="receipt-button">Type In My Receipt ID</button>
-                                    <button class="card-button">Swipe my Credit Card</button>
+                            <div class="purchase-option-form card">
+                                <div>
+                                    <header>Please Swipe Your Credit Card</header>
+                                    <div class="action-indicator"></div>
                                 </div>
                             </div>
-                            <div class="search-options">
-                                <div class="receipt option">
-                                    <div class="instructions">Use the on screen keyboard to type in your receipt ID.</div>
-                                    <input class="receipt-input" type="text" maxlength="6" placeholder="XX-XXX"/>
-                                    <button class="retrieve" disabled>Retrieve Ticket(s)</button>
-                                </div>
-                                <div class="card option">
-                                    <div class="instructions">Please swipe the credit card used to purchase your tickets. Your card will not be charged.</div>                                
+                            <div class="purchase-option-form gift">
+                                <div>
+                                    <header>Please Swipe Your Gift Card</header>
+                                    <div class="action-indicator"></div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <footer>
-                        <button class="return-main-menu">Back to Main Menu</button>
-                    </footer>
-              </div>
-              <div class="page" id="page-print-tickets">
-                  <header>Print Tickets</header>
-                    <div class="content">
-                        <div class="instructions">
-                            <p>
-                                Confirm that the tickets below are correct, then select the &ldquo;Print Tickets&rdquo; button to continue.<br />
-                                If the tickets below are not correct, please select the &ldquo;Cancel&rdquo; button and alert an attendant at the manned Box Office.
-                            </p>
+                </div>
+                <footer>
+                    <button class="return-showing">Back to Showing</button>
+                    <button class="return-main-menu">Back to Main Menu</button>
+                </footer>
+            </div>
+            
+            <div class="page" id="page-purchase-results">
+                <header>Purchase Tickets</header>
+                <div class="content">
+                    <div class="tickets-container float-group">
+                        <header>Purchase Summary</header>
+                        <div class="purchase-status"></div>
+                        <div class="receipt-data">
+                            <div>
+                                <div>Payment Type: <span class="payment-type"></span></div>
+                                <div class="payment-type-info"></div>
+                            </div>
                         </div>
-                        <div class="tickets-container"></div>
+                        <div class="tickets"></div>
+                        <button class="print-tickets">Print Tickets</button>
                     </div>
-                    <footer>
-                        <button class="print-tickets">Print Ticket(s)</button>
-                        <button class="return-main-menu">Back to Main Menu</button>
-                    </footer>
-              </div>
-              <div class="page" id="page-print-results">
-                  <header>Collect Your Tickets</header>
-                  <div class="content">
-                        <div class="instructions">
-                            <p>Please retrieve your tickets from the ticket dispenser below.</p>
-                            <p>Thanks for choosing <span class="cinema-name"></span>, and enjoy your movie!</p>
+                </div>
+                <footer>
+                    <button class="return-main-menu">Back to Main Menu</button>
+                </footer>
+            </div>
+            
+            <div class="page" id="page-ticket-search">
+                <div class="content">
+                    <div class="search-container">
+                        <header>Purchase Tickets</header>
+                        <div class="message"></div>
+                        <div class="options">
+                            <header>Select your method of ticket retrieval.</header>
+                            <div class="buttons">
+                                <button class="receipt-button">Type In My Receipt ID</button>
+                                <button class="card-button">Swipe my Credit Card</button>
+                            </div>
                         </div>
-                  </div>
-                  <footer>
-                      <button class="return-main-menu">Back to Main Menu</button>
-                  </footer>
-              </div>
-          </div>
-      </div>
-     
-      <iframe id="sandbox-scripts" class="hidden" src="scripts/sandbox-scripts.html"></iframe>
-  </body>
+                        <div class="search-options">
+                            <div class="receipt option">
+                                <div class="instructions">Use the on screen keyboard to type in your receipt ID.</div>
+                                <input class="receipt-input" type="text" maxlength="6" placeholder="XX-XXX" />
+                                <button class="retrieve" disabled>Retrieve Ticket(s)</button>
+                            </div>
+                            <div class="card option">
+                                <div class="instructions">Please swipe the credit card used to purchase your tickets. Your card will not be charged.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <footer>
+                    <button class="return-main-menu">Back to Main Menu</button>
+                </footer>
+            </div>
+            
+            <div class="page" id="page-print-tickets">
+                <header>Print Tickets</header>
+                <div class="content">
+                    <div class="instructions">
+                        <p>
+                            Confirm that the tickets below are correct, then select the &ldquo;Print Tickets&rdquo; button to continue.
+                            <br />If the tickets below are not correct, please select the &ldquo;Cancel&rdquo; button and alert an attendant at the manned Box Office.
+                        </p>
+                    </div>
+                    <div class="tickets-container"></div>
+                </div>
+                <footer>
+                    <button class="print-tickets">Print Ticket(s)</button>
+                    <button class="return-main-menu">Back to Main Menu</button>
+                </footer>
+            </div>
+            
+            <div class="page" id="page-print-results">
+                <header>Collect Your Tickets</header>
+                <div class="content">
+                    <div class="instructions">
+                        <p>Please retrieve your tickets from the ticket dispenser below.</p>
+                        <p>Thanks for choosing <span class="cinema-name"></span>, and enjoy your movie!</p>
+                    </div>
+                </div>
+                <footer>
+                    <button class="return-main-menu">Back to Main Menu</button>
+                </footer>
+            </div>
+        </div>
+    </div>
+
+    <iframe id="sandbox-scripts" class="hidden" src="scripts/sandbox-scripts.html"></iframe>
+</body>
 </html>
