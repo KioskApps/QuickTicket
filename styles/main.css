@@ -54,6 +54,7 @@ html, body {
 body > header {
     display: block;
     font-size: 2.5em;
+    height: 8%;
     padding: 0.5em;
     width: 100%;
     background-color: #8a231c;
@@ -114,7 +115,7 @@ button:focus {
 *******************************************************************************/
 #slide-container {
     width: 100%;
-    height: 90%;
+    height: 92%;
 }
 #slide-container .slide .page {
     overflow: hidden;

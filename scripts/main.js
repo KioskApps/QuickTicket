@@ -60,8 +60,6 @@ main.initialize = function() {
     //Setup StillThere
     stillthere.timeoutStillThere = 120000; //2 minutes
     stillthere.timeout = 150000; //2.5 minutes
-    stillthere.timeoutStillThere = 5000; //2 minutes
-    stillthere.timeout = 15000; //2.5 minutes
     stillthere.addEventListener(stillthere.Event.STILL_THERE, function() {
         stillthere.overlay.find('.message').html('Are you still there?');
     });

@@ -114,14 +114,13 @@
                     image.src = blobUrl;
                     image.onload = function() {
                         var message = 'Loading "' + movie.title + '" ...';
-                        rotten.progress(imagesLoaded, data.movies.length, message);
+                        rotten.progress(imagesLoaded + 1, data.movies.length, message);
                         
                         var response = resizeImage(image, 300, true);
                         movie.poster = response.normal;
                         movie.posterBlur = response.blur;
                         
                         imagesLoaded++;
-                        rotten.progress(imagesLoaded, data.movies.length, message);
                         checkFinished();
                     };
                 }
