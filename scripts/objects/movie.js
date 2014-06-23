@@ -39,7 +39,8 @@ function Movie() {
      * A link to the movie poster to be used in a 'src' attribute
      * @type {string}
      */
-    this.posterUrl = 'images/loading.gif';
+    this.poster = 'images/loading.gif';
+    this.posterBlur = this.poster;
     /**
      * A short synopsis of the movie's plot
      * @type {string}
@@ -85,19 +86,29 @@ function Movie() {
         s.find('.movie-title').html(self.title);
         s.find('.movie-rating').html('<span class="title">Rating: </span><span class="rating">' + self.rating + '</span>');
         s.find('.movie-runtime').html(self.runtime);
-        s.find('.movie-poster').attr('src', self.posterUrl);
-        s.find('.movie-poster').css('background-image', 'url("' + self.posterUrl + '")');
+        
+        s.find('.movie-poster').attr('src', self.poster);
+        s.find('.movie-poster').css('background-image', 'url("' + self.poster + '")');
+        s.find('.movie-poster.blur').attr('src', self.posterBlur);
+        s.find('.movie-poster.blur').css('background-image', 'url("' + self.posterBlur + '")');
+        
         s.find('.movie-synopsis').html(self.synopsis);
-        var cast = s.find('.movie-cast').empty();
+        var cast = [];
         var castLimit = (self.cast.length > 7 ) ? 7 : self.cast.length;
         for (var i = 0; i < castLimit; i++) {
-            cast.append($('<div/>').html(self.cast[i]));
+            cast.push('<div>');
+            cast.push(self.cast[i]);
+            cast.push('</div>');
         }
-        var directors = s.find('.movie-directors').empty();
+        s.find('.movie-cast').html(cast.join(''));
+        var directors = [];
         var directorsLimit = (self.directors.length > 7 ) ? 7 : self.directors.length;
         for (var i = 0; i < directorsLimit; i++) {
-            directors.append($('<div/>').html(self.directors[i]));
+            directors.push('<div>');
+            directors.push(self.directors[i]);
+            directors.push('</div>');
         }
+        s.find('movie-directors').html(directors.join(''));
         return selector;
     };
     
@@ -110,7 +121,7 @@ function Movie() {
      */
     this.getCarouselDiv = function() {
         var div = $('<div/>').addClass('movie').attr('data-id', self.id);
-        div.append($('<img>').addClass('movie-poster').attr('src', self.posterUrl));
+        div.append($('<img>').addClass('movie-poster').attr('src', self.poster));
         var movieData = $('<div/>').addClass('movie-data');
         movieData.append($('<div/>').addClass('movie-rating'));
         self.setMovieData(movieData);

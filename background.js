@@ -9,9 +9,11 @@ chrome.app.runtime.onLaunched.addListener(function() {
         window.onClosed.addListener(function() {
             setBounds(true);
             setKeyboard(false);
+            chrome.power.releaseKeepAwake();
         });
         setBounds(false);
         setKeyboard(true);
+        chrome.power.requestKeepAwake('display');
     });
 });
 

@@ -39,8 +39,19 @@ main.initialize = function() {
     //First display a processing page while we load and initialize
     slider.navigateTo('#page-processing', slider.Direction.LEFT);
     
+    //Create a temporary message/progress bar to indicate data loading status
+    var m = $('<div/>').appendTo($('#page-processing .message')).html('Loading Data');
+    var p = $('<progress/>').appendTo($('#page-processing .message'));
+    rotten.progress = function(index, length, message) {
+        m.html(message);
+        p.attr('max', length).val(index);
+    };
     //Load data
-    data.initializeData(main.start);
+    data.initializeData(function() {
+        m.hide();
+        p.hide();
+        main.start();
+    });
     $('.cinema-name').html(data.CINEMA_NAME);
     
     //Start Clock
@@ -49,6 +60,8 @@ main.initialize = function() {
     //Setup StillThere
     stillthere.timeoutStillThere = 120000; //2 minutes
     stillthere.timeout = 150000; //2.5 minutes
+    stillthere.timeoutStillThere = 5000; //2 minutes
+    stillthere.timeout = 15000; //2.5 minutes
     stillthere.addEventListener(stillthere.Event.STILL_THERE, function() {
         stillthere.overlay.find('.message').html('Are you still there?');
     });

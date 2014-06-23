@@ -11,7 +11,7 @@
     /**
      * The Rotten Tomatoes API key (replace with your own)
      */
-    rotten.API_KEY = 'e7xdbjgd572szexwqpxjfhb2';
+    rotten.API_KEY = 'mzjrz3v6uy5d3kg6tw63yk78';
     /**
      * URL to retrieve movies that are currently in theaters
      */

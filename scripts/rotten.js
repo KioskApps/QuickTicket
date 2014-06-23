@@ -1,4 +1,4 @@
-(function(window) {
+(function(window, document, Math) {
     //Check if sandbox-scripts.js exists
     if (!window.sandbox) {
         throw new Error('rotten.js requires sandbox. sandbox-scripts.js is not loaded in the "sandbox-scripts" iframe.');
@@ -7,7 +7,36 @@
     //Rotten Tomatoes Scope
     var rotten = {};
     window.rotten = rotten;
-
+    
+    /**
+     * Called each time an image is successfully loaded in order to give 
+     * user feedback on the status of the movie image loading/resizing.
+     * @param {number} index the number of images loaded
+     * @param {number} length the max number of images to load
+     * @param {string} message a short message about the status of loading
+     * @returns {undefined}
+     */
+    rotten.progress = function(index, length, message) {};
+    /**
+     * Called when all movie data images have been loaded.
+     * @returns {undefined}
+     */
+    rotten.finished = function() {};
+    /**
+     * Current number of images loaded.
+     */
+    var imagesLoaded = 0;
+    /**
+     * Checks if all movie data images have been loaded, and calls 
+     * rotten.finished if true.
+     * @returns {undefined}
+     */
+    var checkFinished = function() {
+        if (imagesLoaded === data.movies.length) {
+            rotten.finished();
+        }
+    };
+    
     /**
      * Retrieves movie data for movies currently in theaters using the 
      * Rotten Tomatoes API and parses the data into the data.movies Array.
@@ -19,8 +48,8 @@
         window.addEventListener('message', function(e) {
             if (e.data.script === 'rotten') {
                 rotten.parseMovieData(e.data.movies);
-                if (callback !== undefined) {
-                    callback();
+                if (typeof callback === 'function') {
+                    rotten.finished = callback;
                 }
             }
         });
@@ -47,7 +76,14 @@
             movie.title = m.title;
             movie.rating = m.mpaa_rating;
             movie.runtime = m.runtime + ' min';
-            rotten.getMoviePoster(m.posters.detailed, movie);
+            //Original is the highest resolution, but this can be replaced 
+            //with detailed if the network is an issue.
+            //We're replacing "_tmb" with "_ori" due to a bug in the 
+            //Rotten Tomatoes API that sometimes returns only thumbnail images
+            //(noted as https://link/to/thumb_tmb.jpg). This bypasses that bug
+            //and retrieves the original size.
+            m.posters.original = m.posters.original.replace('_tmb', '_ori');
+            rotten.getMoviePoster(m.posters.original, movie);
             movie.synopsis = m.synopsis;
             for (var j = 0; j < m.abridged_cast.length; j++) {
                 movie.cast.push(m.abridged_cast[j].name);
@@ -71,12 +107,62 @@
         xhr.onreadystatechange = function() {
             if (xhr.readyState === 4) {
                 if (xhr.status === 200) {
-                    movie.posterUrl = window.URL.createObjectURL(xhr.response);
-                    $('.movies-carousel .movie[data-id="' + movie.id + '"] .movie-poster').attr('src', movie.posterUrl);
+                    var blob = xhr.response;
+                    var blobUrl = window.URL.createObjectURL(blob);
+                    var image = new Image();
+                    
+                    image.src = blobUrl;
+                    image.onload = function() {
+                        var message = 'Loading "' + movie.title + '" ...';
+                        rotten.progress(imagesLoaded, data.movies.length, message);
+                        
+                        var response = resizeImage(image, 300, true);
+                        movie.poster = response.normal;
+                        movie.posterBlur = response.blur;
+                        
+                        imagesLoaded++;
+                        rotten.progress(imagesLoaded, data.movies.length, message);
+                        checkFinished();
+                    };
                 }
             } 
         };
-        xhr.open('GET', url, true);
+        xhr.open('GET', url);
         xhr.send();
     };
-})(window);
+    /**
+     * Resizes an image if its width is greater than the max width provided.
+     * <p>
+     * This method returns an object with two data URLs, "normal" and "blur". 
+     * The "normal" data URL is the resized image, and the "blur" data URL is 
+     * the resized image with a blur filter applied.
+     * @param {Image} img the Image to resize
+     * @param {number} maxWidth the max width of the image
+     * @returns {Object} Object with two properties, "normal" and "blur" which 
+     *      contain data URLs to the normal and blurred images
+     */
+    var resizeImage = function(img, maxWidth) {
+        var canvas = document.createElement('canvas');
+        
+        var width = img.width;
+        var height = img.height;
+        
+        if (width > maxWidth) {
+            height = Math.round(height *= maxWidth / width);
+            width = maxWidth;
+        }
+        
+        canvas.width = width;
+        canvas.height = height;
+        var ctx = canvas.getContext("2d");
+        ctx.drawImage(img, 0, 0, width, height);
+        
+        var response = {};
+        response.normal = canvas.toDataURL('image/jpeg');
+        
+        //See StackBlur.js for blur implementation
+        stackBlurCanvasRGB(canvas, 0, 0, width, height, 5, 1);
+        response.blur = canvas.toDataURL('image/jpeg');
+        return response;
+    };
+})(window, document, Math);

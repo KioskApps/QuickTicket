@@ -10,7 +10,7 @@
 }
 
 .still-there .background {
-    background-color: #fff;
+    background-color: #000;
     height: 100%;
     left: 0;
     opacity: 0.7;
@@ -25,7 +25,7 @@
 }
 
 .still-there .message {
-    color: #000;
+    color: #fff;
     font-size: 8em;
 }
 

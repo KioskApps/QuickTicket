@@ -6,7 +6,7 @@
     },
     "manifest_version": 2,
     "name": "QuickTicket",
-    "version": "1.4.1",
+    "version": "1.4.2",
     
     "description": "Movie theater kiosk app for Chrome",
     "icons": { 
@@ -21,6 +21,8 @@
     "offline_enabled": true,
     "permissions": [
         "system.display",
+        "storage",
+        "power",
         "accessibilityFeatures.read",
         "accessibilityFeatures.modify",
         "<all_urls>"
