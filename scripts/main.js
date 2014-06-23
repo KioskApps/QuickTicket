@@ -92,6 +92,9 @@ main.initialize = function() {
         swiper.scanning = false;    
         swiper.removeFocus();
     });
+    $('#page-ticket-search .retrieve').click(function() {
+        main.searchProcess($('#page-ticket-search .receipt-input').val());
+    });
     $('#page-ticket-search').on(swiper.EVENT, function(e, card) {
         main.searchProcess(card);
     });
