@@ -70,6 +70,12 @@ main.initialize = function() {
     
     //Setup swiper
     swiper.addTrigger('#page-purchase');
+    $('.simulate.card').click(function() {
+        var e = document.createEvent('Events');
+        e.initEvent('keypress', true, true);
+        e.keyCode = swiper.bypass;
+        document.dispatchEvent(e);        
+    });
     
     /*
      * Add Listeners
@@ -92,6 +98,7 @@ main.initialize = function() {
     $('#page-purchase .payment-method-option.cash').click(main.purchaseCash);
     $('#page-purchase .payment-method-option.card').click(main.purchaseCard);
     $('#page-purchase .payment-method-option.gift').click(main.purchaseGift);
+    $('#page-purchase .simulate.cash').click(main.purchaseCashSuccess);
     
     //Page-Purchase-Results
     $('#page-purchase-results .print-tickets').click(function() {
@@ -605,6 +612,12 @@ main.purchaseSwiper = function(e, card) {
         $('#page-purchase .purchase-option-form.card header').html(message);
         $('#page-purchase .purchase-option-form.gift header').html(message);
     }
+};
+main.purchaseCashSuccess = function() {
+    main.session.receipt.paymentObject = {};
+    main.session.receipt.paymentTypeInfo = 'Change Due: $0.00';
+
+    slider.navigateTo('#page-purchase-results', slider.Direction.RIGHT, main.purchaseResultsBeforeOpen);
 };
 /**
  * Displays the "Cash" purchase option.

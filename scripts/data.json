@@ -23,13 +23,13 @@
             "name": "Standard",
             "tickets": [
                 {
+                    "id": 1, "price": 10.00
+                },
+                {
                     "id": 2, "price": 7.00
                 },
                 {
                     "id": 4, "price": 8.00
-                },
-                {
-                    "id": 1, "price": 10.00
                 },
                 {
                     "id": 3, "price": 6.00
@@ -41,13 +41,13 @@
             "name": "3D",
             "tickets": [
                 {
+                    "id": 1, "price": 12.00
+                },
+                {
                     "id": 2, "price": 9.00
                 },
                 {
                     "id": 4, "price": 10.00
-                },
-                {
-                    "id": 1, "price": 12.00
                 },
                 {
                     "id": 3, "price": 8.00
@@ -59,13 +59,13 @@
             "name": "IMAX",
             "tickets": [
                 {
+                    "id": 1, "price": 15.00
+                },
+                {
                     "id": 2, "price": 12.00
                 },
                 {
                     "id": 4, "price": 13.00
-                },
-                {
-                    "id": 1, "price": 15.00
                 },
                 {
                     "id": 3, "price": 11.00
@@ -77,13 +77,13 @@
             "name": "IMAX 3D",
             "tickets": [
                 {
+                    "id": 1, "price": 17.00
+                },
+                {
                     "id": 2, "price": 14.00
                 },
                 {
                     "id": 4, "price": 15.00
-                },
-                {
-                    "id": 1, "price": 17.00
                 },
                 {
                     "id": 3, "price": 13.00
