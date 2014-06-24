@@ -476,15 +476,17 @@ progress::-webkit-progress-value {
 #page-showing .ticket-types * {
     flex: 1;
 }
-#page-showing .add-tickets
-{
+#page-showing .add-tickets {
     background-color: transparent;
     border: none;
-    color: rgb(0, 97, 243);
-    text-shadow: none;
-    font-size: 1.1em;
-    display: block;
     border-top: solid 1px #ccc;
+    color: rgb(0, 97, 243);
+    display: block;
+    font-family: 'YanoneKaffeesatz', 'Open Sans', 'Arial', 'Helvetica';
+    font-size: 1.1em;
+    padding: 0.5em;
+    text-align: center;
+    text-shadow: none;
     width: 100%;
 }
 #page-showing .ticket-totals-container

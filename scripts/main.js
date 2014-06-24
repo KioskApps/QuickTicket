@@ -94,6 +94,9 @@ main.initialize = function() {
     });
     
     //Page-Purchase
+    $('#page-purchase').on(slider.Event.BEFORE_OPEN, function() {
+        $('#page-purchase .simulate').hide();
+    });
     $('#page-purchase').on(swiper.EVENT, main.purchaseSwiper);
     $('#page-purchase .payment-method-option.cash').click(main.purchaseCash);
     $('#page-purchase .payment-method-option.card').click(main.purchaseCard);
@@ -106,6 +109,9 @@ main.initialize = function() {
     });
     
     //Page-Ticket-Search
+    $('#page-ticket-search').on(slider.Event.BEFORE_OPEN, function() {
+        $('#page-ticket-search .simulate').hide();
+    });
     $('#page-ticket-search').on(slider.Event.AFTER_CLOSE, function() {
         swiper.scanning = false;    
         swiper.removeFocus();
@@ -242,23 +248,32 @@ main.addTicket = function(type, clearExisting) {
             }
         }
         
+        var inserted = false;
         if (tickets.length > 0) {
-            var inserted = false;
-            
             if (index === 0) {
                 $('#page-showing .showing-tickets').prepend(ticket);
                 inserted = true;
             }
             else {
+                var appendAfter;
                 for (var i = 0; i < tickets.length; i++) {
                     var t = $(tickets[i]);
                     var tIndex = 0;
                     for (var j = 0; j < theaterTickets.length; j++) {
                         if (t.attr('data-type') === theaterTickets[j].ticketType.name) {
                             tIndex = j;
+                            break;
                         }
                     }
-                    if (index === (tIndex - 1)) {
+                    if (index > tIndex) {
+                        appendAfter = t;
+                    }
+                    else if (appendAfter) {
+                        ticket.insertAfter(appendAfter);
+                        inserted = true;
+                        break;
+                    }
+                    else {
                         ticket.insertBefore(t);
                         inserted = true;
                         break;
@@ -267,7 +282,7 @@ main.addTicket = function(type, clearExisting) {
             }
         }
         
-        if (tickets.length === 0 || !inserted) {
+        if (!inserted) {
             $('#page-showing .showing-tickets').append(ticket);
         }
             
@@ -627,6 +642,8 @@ main.purchaseCash = function() {
     main.session.receipt.paymentType = 'Cash';
     swiper.scanning = false;
     main.showPurchaseOption('cash');
+    $('#page-purchase .simulate.card').hide();
+    $('#page-purchase .simulate.cash').show(main.SECTION_ANIMATION);
 };
 /**
  * Displays the "Card" purchase option.
@@ -637,6 +654,8 @@ main.purchaseCard = function() {
     swiper.scanning = true;
     $('#page-purchase .purchase-option-form.card header').html('Please Swipe Your Credit Card');
     main.showPurchaseOption('card');
+    $('#page-purchase .simulate.cash').hide();
+    $('#page-purchase .simulate.card').show(main.SECTION_ANIMATION);
 };
 /**
  * Displays the "Gift" purchase option.
@@ -647,6 +666,8 @@ main.purchaseGift = function() {
     swiper.scanning = true;
     $('#page-purchase .purchase-option-form.gift header').html('Please Swipe Your Gift Card');
     main.showPurchaseOption('gift');
+    $('#page-purchase .simulate.cash').hide();
+    $('#page-purchase .simulate.card').show(main.SECTION_ANIMATION);
 };
 /**
  * Opens a specified purchase option.
@@ -783,6 +804,7 @@ main.searchReceipt = function() {
     swiper.scanning = false;
     main.searchMessage();
     main.showSearchOption('receipt');
+    $('#page-ticket-search .simulate').hide();
 };
 /**
  * Validates the format of the Receipt ID input.
@@ -815,6 +837,7 @@ main.searchCard = function() {
     swiper.setFocus($('#page-ticket-search'));
     main.searchMessage();
     main.showSearchOption('card');
+    $('#page-ticket-search .simulate.card').show(main.SECTION_ANIMATION);
 };
 /**
  * Opens a ticket search option.

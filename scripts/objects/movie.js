@@ -40,6 +40,11 @@ function Movie() {
      * @type {string}
      */
     this.poster = 'images/loading.gif';
+    /**
+     * A link to a blurred out version of the movie poster, to be used in a 
+     * 'src' attribute
+     * @type {string}
+     */
     this.posterBlur = this.poster;
     /**
      * A short synopsis of the movie's plot
